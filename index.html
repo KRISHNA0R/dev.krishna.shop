@@ -517,6 +517,8 @@
         (function initBrutalistDock() {
             const dock = document.querySelector('.dock');
             if (!dock) return;
+            const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+            if (isTouchDevice) return;
             const items = dock.querySelectorAll('.dock-item');
             if (!items.length) return;
 
