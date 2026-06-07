@@ -22,11 +22,11 @@
     
     <nav class="navbar">
         <div class="nav-brand">DEV.KRISHNA.SHOP</div>
-        <ul class="nav-links">
-            <li><a href="#home">HOME</a></li>
-            <li><a href="#products">PRODUCTS</a></li>
-            <li><a href="#pricing">PRICING</a></li>
-            <li><a href="#contact">CONTACT</a></li>
+        <ul class="nav-links dock">
+            <li><a href="#home" class="dock-item">HOME</a></li>
+            <li><a href="#products" class="dock-item">PRODUCTS</a></li>
+            <li><a href="#pricing" class="dock-item">PRICING</a></li>
+            <li><a href="#contact" class="dock-item">CONTACT</a></li>
         </ul>
     </nav>
 
@@ -454,6 +454,57 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Brutalist Dock Effect — proximity-based scaling for navbar
+        (function initBrutalistDock() {
+            const dock = document.querySelector('.dock');
+            if (!dock) return;
+            const items = dock.querySelectorAll('.dock-item');
+            if (!items.length) return;
+
+            const BASE_SCALE = 1;
+            const MAX_SCALE = 1.65;
+            const RANGE = 150;
+            let rafId = null;
+            let mouseX = null;
+
+            const applyScales = () => {
+                rafId = null;
+                if (mouseX === null) return;
+                items.forEach((item) => {
+                    const rect = item.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const distance = Math.abs(mouseX - centerX);
+                    let scale = BASE_SCALE;
+                    if (distance < RANGE) {
+                        scale = MAX_SCALE - (distance / RANGE) * (MAX_SCALE - BASE_SCALE);
+                    }
+                    const shadowOffset = Math.round(5 * (scale / BASE_SCALE));
+                    item.style.setProperty('--dock-scale', scale.toFixed(3));
+                    if (item.classList.contains('is-active') || scale > BASE_SCALE + 0.05) {
+                        item.style.boxShadow = `${shadowOffset}px ${shadowOffset}px 0px var(--black)`;
+                    }
+                });
+            };
+
+            dock.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                if (rafId === null) rafId = requestAnimationFrame(applyScales);
+            });
+
+            dock.addEventListener('mouseleave', () => {
+                mouseX = null;
+                if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+                items.forEach((item) => {
+                    item.style.setProperty('--dock-scale', BASE_SCALE);
+                    if (item.classList.contains('is-active')) {
+                        item.style.boxShadow = '5px 5px 0px var(--black)';
+                    } else {
+                        item.style.boxShadow = '0px 0px 0px var(--neon-yellow)';
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 </html>
