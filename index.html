@@ -19,6 +19,7 @@
     </div>
     
     <div class="noise"></div>
+    <div class="cursor-box" id="cursor-box"></div>
     
     <nav class="navbar">
         <div class="nav-brand">DEV.KRISHNA.SHOP</div>
@@ -454,6 +455,63 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Brutalist Smooth Cursor
+        (function initSmoothCursor() {
+            const cursor = document.getElementById('cursor-box');
+            if (!cursor) return;
+
+            const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+            if (isTouchDevice) return;
+
+            let mouseX = -100, mouseY = -100;
+            let currentX = -100, currentY = -100;
+            let targetX = -100, targetY = -100;
+            let rafId = null;
+
+            const interactiveSelectors = 'a, button, .btn, .product-card, .pricing-card, .step-card, .review-card, .contact-card, .faq-item, .social-box, .dock-item, .badge-dropping-soon, input, textarea, select, [role="button"]';
+
+            const onMove = (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                const hit = e.target.closest && e.target.closest(interactiveSelectors);
+                if (hit) {
+                    cursor.classList.add('hovering');
+                } else {
+                    cursor.classList.remove('hovering');
+                }
+            };
+
+            const animate = () => {
+                targetX += (mouseX - targetX) * 0.22;
+                targetY += (mouseY - targetY) * 0.22;
+                currentX += (targetX - currentX) * 0.35;
+                currentY += (targetY - currentY) * 0.35;
+                cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+                rafId = requestAnimationFrame(animate);
+            };
+
+            const show = () => {
+                cursor.classList.add('is-ready');
+            };
+
+            const hide = () => {
+                cursor.classList.remove('is-ready');
+            };
+
+            const onDown = () => cursor.classList.add('pressing');
+            const onUp = () => cursor.classList.remove('pressing');
+
+            document.addEventListener('mousemove', onMove, { passive: true });
+            document.addEventListener('mouseenter', show);
+            document.addEventListener('mouseleave', hide);
+            document.addEventListener('mousedown', onDown);
+            document.addEventListener('mouseup', onUp);
+            window.addEventListener('blur', hide);
+
+            cursor.classList.add('is-ready');
+            rafId = requestAnimationFrame(animate);
+        })();
 
         // Brutalist Dock Effect — proximity-based scaling for navbar
         (function initBrutalistDock() {

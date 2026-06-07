@@ -658,6 +658,59 @@ footer {
     margin: 0 auto;
 }
 
+/* Brutalist Smooth Cursor */
+.cursor-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    background-color: var(--neon-yellow);
+    border: 3px solid var(--black);
+    box-shadow: 4px 4px 0px var(--black);
+    pointer-events: none;
+    z-index: 100001;
+    transform: translate3d(-100px, -100px, 0);
+    transition: width 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                height 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background-color 0.15s,
+                border-color 0.15s,
+                box-shadow 0.2s,
+                opacity 0.2s;
+    opacity: 0;
+    display: none;
+}
+
+.cursor-box.is-ready {
+    opacity: 1;
+}
+
+.cursor-box.hovering {
+    width: 52px;
+    height: 52px;
+    background-color: var(--brutal-red);
+    box-shadow: 6px 6px 0px var(--black);
+    border-color: var(--black);
+}
+
+.cursor-box.pressing {
+    width: 16px;
+    height: 16px;
+    background-color: var(--black);
+    box-shadow: 2px 2px 0px var(--neon-yellow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cursor-box {
+        display: block;
+    }
+    html, body, a, button, .btn, input, textarea, select,
+    .product-card, .pricing-card, .step-card, .review-card,
+    .contact-card, .faq-item, .social-box, .dock-item {
+        cursor: none !important;
+    }
+}
+
 /* Trust Strip */
 .trust-strip {
     background-color: var(--black);
