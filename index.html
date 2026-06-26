@@ -21,6 +21,44 @@
     <div class="noise"></div>
     <div class="cursor-box" id="cursor-box"></div>
     
+    <!-- Limited Time Offer Popup -->
+    <div id="offer-popup" class="offer-popup">
+        <div class="popup-backdrop"></div>
+        <div class="popup-content">
+            <button class="popup-close" id="popup-close">×</button>
+            <div class="popup-timer-wrap">
+                <div class="timer-label">OFFER ENDS IN</div>
+                <div class="popup-timer" id="popup-timer">
+                    <span class="timer-unit"><span id="timer-hours">07</span><small>HRS</small></span>
+                    <span class="timer-sep">:</span>
+                    <span class="timer-unit"><span id="timer-minutes">45</span><small>MIN</small></span>
+                    <span class="timer-sep">:</span>
+                    <span class="timer-unit"><span id="timer-seconds">32</span><small>SEC</small></span>
+                </div>
+            </div>
+            <div class="popup-badge">🔥 PRICE DROP SALE</div>
+            <h2 class="popup-heading">VIBE CODING 1:1 SESSION</h2>
+            <h3 class="popup-subheading">6TH BATCH STARTING SOON</h3>
+            <div class="popup-deals">
+                <div class="popup-deal">
+                    <span class="deal-plan">MONTHLY</span>
+                    <span class="deal-price">₹499</span>
+                </div>
+                <div class="popup-deal">
+                    <span class="deal-plan">6 MONTHS</span>
+                    <span class="deal-price">₹899</span>
+                </div>
+                <div class="popup-deal">
+                    <span class="deal-plan">YEARLY</span>
+                    <span class="deal-price">₹1,299</span>
+                </div>
+            </div>
+            <p class="popup-cta-text">ENROLL NOW AT MASSIVE DISCOUNT</p>
+            <p class="popup-sub-text">Click anywhere to see plans →</p>
+            <div class="popup-auto-close-notice">Auto-closes in <span id="popup-countdown">10</span>s</div>
+        </div>
+    </div>
+    
     <nav class="navbar">
         <div class="nav-brand">DEV.KRISHNA.SHOP</div>
         <ul class="nav-links dock">
@@ -567,6 +605,64 @@
                     }
                 });
             });
+        })();
+
+        // BrutaList Offer Popup
+        (function initOfferPopup() {
+            var popup = document.getElementById('offer-popup');
+            var closeBtn = document.getElementById('popup-close');
+            var countdownEl = document.getElementById('popup-countdown');
+            if (!popup) return;
+
+            // Timer countdown to a date 7 days from now
+            var endDate = new Date();
+            endDate.setDate(endDate.getDate() + 7);
+            endDate.setHours(23, 59, 59, 0);
+
+            function updateTimer() {
+                var now = new Date();
+                var diff = Math.max(0, endDate - now);
+                var h = Math.floor(diff / 3600000);
+                var m = Math.floor((diff % 3600000) / 60000);
+                var s = Math.floor((diff % 60000) / 1000);
+                document.getElementById('timer-hours').textContent = String(h).padStart(2, '0');
+                document.getElementById('timer-minutes').textContent = String(m).padStart(2, '0');
+                document.getElementById('timer-seconds').textContent = String(s).padStart(2, '0');
+            }
+            updateTimer();
+            setInterval(updateTimer, 1000);
+
+            // Show popup after loader finishes (~2s)
+            setTimeout(function () {
+                popup.classList.add('is-open');
+            }, 2000);
+
+            // Close + scroll to pricing on popup click
+            popup.addEventListener('click', function (e) {
+                if (e.target === closeBtn || e.target.closest('.popup-close')) return;
+                popup.classList.remove('is-open');
+                document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Close button
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    popup.classList.remove('is-open');
+                });
+            }
+
+            // Auto-close after 10 seconds
+            var autoSec = 10;
+            countdownEl.textContent = autoSec;
+            var autoInterval = setInterval(function () {
+                autoSec--;
+                countdownEl.textContent = autoSec;
+                if (autoSec <= 0) {
+                    clearInterval(autoInterval);
+                    popup.classList.remove('is-open');
+                }
+            }, 1000);
         })();
     </script>
 </body>
