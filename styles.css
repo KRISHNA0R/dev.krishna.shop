@@ -327,6 +327,161 @@ section {
     margin-bottom: 4rem;
 }
 
+/* Hero Inner Layout */
+.hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    margin: 0;
+}
+
+.hero-content .hero-text-box {
+    display: inline-block;
+}
+
+.hero-content p {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.hero-content .hero-buttons {
+    justify-content: flex-start;
+}
+
+/* Photo Frame Section */
+.hero-photo-section {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 260px;
+}
+
+.photo-frame {
+    border: 5px solid var(--black);
+    box-shadow: 8px 8px 0px var(--black);
+    background: var(--white);
+    padding: 1rem;
+    position: relative;
+}
+
+.photo-placeholder {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        #E8E8E8 0px,
+        #E8E8E8 10px,
+        #F5F5F5 10px,
+        #F5F5F5 20px
+    );
+    border: 3px solid var(--black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    color: #aaa;
+    font-weight: 700;
+}
+
+.placeholder-text {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: #999;
+    font-weight: 700;
+}
+
+.photo-frame-label {
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    background: var(--neon-yellow);
+    color: var(--black);
+    border: 3px solid var(--black);
+    padding: 0.2rem 1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+/* Achievements Panel */
+.achievements-panel {
+    border: 4px solid var(--black);
+    box-shadow: 5px 5px 0px var(--black);
+    background: var(--black);
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.achievement-slot {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 0.5rem 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 38px;
+}
+
+.slot-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.slot-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ccc;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .hero-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-content p {
+        text-align: center;
+    }
+
+    .hero-content .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-photo-section {
+        width: 220px;
+    }
+}
+
 /* Buttons */
 .btn {
     display: inline-block;
@@ -1190,7 +1345,7 @@ footer {
 
     .hero-content p {
         font-size: 0.95rem;
-        margin-bottom: 2rem;
+        margin: 0 auto 2rem;
         padding: 0 0.5rem;
     }
 
@@ -1339,6 +1494,42 @@ footer {
 
     .hero-content h1 {
         font-size: 1.4rem;
+    }
+
+    .hero-inner {
+        gap: 1.5rem;
+    }
+
+    .hero-photo-section {
+        width: 180px;
+    }
+
+    .photo-frame {
+        border-width: 4px;
+        padding: 0.6rem;
+        box-shadow: 5px 5px 0px var(--black);
+    }
+
+    .photo-frame-label {
+        font-size: 0.7rem;
+        bottom: -12px;
+    }
+
+    .achievements-panel {
+        padding: 0.5rem;
+    }
+
+    .achievement-slot {
+        padding: 0.3rem 0.5rem;
+        min-height: 30px;
+    }
+
+    .slot-label {
+        font-size: 0.5rem;
+    }
+
+    .slot-value {
+        font-size: 0.7rem;
     }
 
     .section-title {
