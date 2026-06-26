@@ -375,6 +375,15 @@ section {
     position: relative;
 }
 
+.photo-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 3px solid var(--black);
+    background: #E8E8E8;
+}
+
 .photo-placeholder {
     aspect-ratio: 1 / 1;
     width: 100%;
@@ -421,6 +430,19 @@ section {
     text-transform: uppercase;
 }
 
+.college-name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.3rem 0.5rem;
+    border: 3px solid var(--black);
+    background: rgba(245, 255, 0, 0.2);
+    box-shadow: 3px 3px 0px var(--black);
+}
+
 /* Achievements Panel */
 .achievements-panel {
     border: 4px solid var(--black);
@@ -454,8 +476,12 @@ section {
 .slot-value {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #ccc;
+    color: var(--black);
     text-transform: uppercase;
+    text-align: right;
+    line-height: 1.2;
+    word-wrap: break-word;
+    max-width: 70%;
 }
 
 @media (max-width: 900px) {
@@ -1529,7 +1555,16 @@ footer {
     }
 
     .slot-value {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
+        max-width: 65%;
+    }
+
+    .college-name {
+        font-size: 0.6rem;
+    }
+
+    .photo-img {
+        aspect-ratio: 1 / 1;
     }
 
     .section-title {
